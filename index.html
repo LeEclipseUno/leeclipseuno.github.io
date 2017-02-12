@@ -1,7 +1,8 @@
 <html>
 
 <head>
-	<title>Bread Clicker</title>
+	<title>Bread Maker</title>
+	<link rel="icon" type="image/x-icon" href="favicon.ico" />
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
@@ -30,7 +31,7 @@
 	</div>
 	<div id="main">
 		<btn class="btn btn-default" href="#" onclick="openNav()">Menu</btn>
-		<h1 id="mainText" class="main-text text-center">Food Maker</h1>
+		<h1 id="mainText" class="main-text text-center"></h1>
 		<div class="row stats">
 			<div class="col-md-3">
 				<div class="text-center" id="wheat"></div>
@@ -70,7 +71,7 @@
 					<div class="col-md-4">
 						<button class="btn btn-default" onclick="sellBread()">Sell Bread</button>
 					</div>
-				</div>
+				</div><br><br>
 			</menu>
 			<menu id="upgrades">
 				<h2 class="text-center">Upgrades</h2>
@@ -90,9 +91,6 @@
 					<div class="progressbar" id="rpbar"></div>
 				</div>
 				<br><br>
-				<button class="btn btn-default tip" id="rIngredientChocolate" title="10 Research Points"> 
-                        Chocolate
-                        </button>
 				<button class="btn btn-default tip" id="rFasterWheat" title="25 Research Points" onclick="fasterWheat(this)"> 
                         Faster Wheat Production I
                         </button>
@@ -110,18 +108,6 @@
                         </button>
 				<button style="display: none;" class="btn btn-default tip" id="rFasterSelling" title="75 Research Points" onclick="fasterSelling2(this)"> 
                         Faster Selling II
-                        </button>
-				<button style="display: none;" class="btn btn-default tip" id="rIngredientStrawberry" title="50 Research Points"> 
-                        Strawberry
-                        </button>
-				<button style="display: none;" class="btn btn-default tip" id="rIngredientSugar" title="100 Research Points"> 
-                        Sugar
-                        </button>
-				<button style="display: none;" class="btn btn-default tip" id="rIngredientCinnamon" title="100 Research Points"> 
-                        Cinnamon
-                        </button>
-				<button style="display: none;" class="btn btn-default tip" id="rIngredientCinnamonSugar" title="20 Research Points"> 
-                        Cinnamon Sugar
                         </button>
 			</menu>
 			<menu id="achievements">
