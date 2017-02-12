@@ -1,13 +1,3 @@
-//////////////New Upgrades///////////////
-//                                                                //
-//   More Wheat per Click                         //
-//   Better Bread                                     //
-//   Faster Auto Wheat/Bread/Selling   //
-//                                                            //
-/////////////////////////////////////////
-
-// "rgb("+Math.floor(255 - (2.55*perc))+","+Math.round(2.55*perc)+",0)"
-
 var money = 0;
 var totalMoney = 0;
 var wheat = 0;
@@ -100,7 +90,6 @@ for (var key in achievements) {
         $('#achievementsContainer').append(element);
 		achievementsNumber++;
     }
-//	$('#achievementsContainer').append("<div style=clear:both;></div>");
 }
 
 function harvestWheat() {
@@ -193,7 +182,7 @@ function typeWriterEffect(id, msg) {
     }
     nextLetter();
 }
-typeWriterEffect("mainText", "Food Maker");
+typeWriterEffect("mainText", "Bread Maker");
 
 $( function() {
     var handle = $( "#custom-handle" );
