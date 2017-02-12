@@ -14,10 +14,7 @@ var wheat = 0;
 var totalWheat = 0;
 var bread = 0;
 var totalBread = 0;
-var cocoa = 0;
-var chocolate = 0;
 
-var chocolateBread = 0;
 var autoWheatPrice = 15;
 var autoBreadPrice = 20;
 var autoSellBreadPrice = 25;
@@ -29,13 +26,17 @@ var breadAuto = false;
 var sellBreadAuto = false;
 var research = false;
 
+var autosave = false;
+
 var currentTimeWheat = 0;
 var currentTimeBread = 0;
 var currentTimeSellBread = 0;
+var currentAutosave = 0;
 
 var wheatTimeout = 3000;
 var breadTimeout = 3000;
 var sellBreadTimeout = 3000;
+var autosaveTimeout = 6000;
 
 var breadPrice = 1;
 
@@ -47,6 +48,7 @@ var rpMax = 100;
 var rPoint = 0;
 
 var achievementIcon = '<img src="icons/achievement.png" width="45" height="45">';
+var saveIcon = '<img src="icons/save.png" width="35" height="35">';
 
 spop.defaults = {
     icon: false,
@@ -155,6 +157,16 @@ function update() {
         currentTimeSellBread = 0;
         sellBread();
     }
+	
+	autosave = $('#autosaveC').is(':checked');
+	 if (autosave) {
+        currentAutosave += 1;
+    }
+	if (currentAutosave > autosaveTimeout) {
+        currentAutosave = 0;
+        saveGame();
+    }
+	
 	perc = currentTimeSellBread/sellBreadTimeout * 100
 	document.getElementById("moneyBar").style.width = perc + "%";
 	document.getElementById("moneyBar").style.backgroundColor = "rgb("+Math.floor(255 - (2.55*perc))+","+Math.round(2.55*perc)+",0)";
@@ -182,6 +194,22 @@ function typeWriterEffect(id, msg) {
     nextLetter();
 }
 typeWriterEffect("mainText", "Food Maker");
+
+$( function() {
+    var handle = $( "#custom-handle" );
+    $( "#slider" ).slider({
+		min: 5,
+		max: 120,
+		step: 5,
+      create: function() {
+        handle.text( $( this ).slider( "value" ) + "s" );
+      },
+      slide: function( event, ui ) {
+			autosaveTimeout = ui.value * 10
+        	handle.text( ui.value  + "s" );
+      }
+    });
+  } );
 
 function loop() {
     for (var key in achievements) {
@@ -224,11 +252,23 @@ function loop() {
   		backgroundColor: "#fff",
 		color: "#000",
 		})
+		$('.sidenav a').css({
+			color: "#fff",
+		})
+		$('.btn-default').css({
+			color: "#fff",
+		})
 	}
 	if (theme == 'nightMode') {
 		$('body').css({
-  		backgroundColor: "#111",
+  		backgroundColor: "#0b0b0b",
 		color: "#fff",
+		})
+		$('.sidenav a').css({
+			color: "#fff",
+		})
+		$('.btn-default').css({
+			color: "#fff",
 		})
 	}
 	$("#stats").html("Total Bread Sold: "+totalMoney.toLocaleString()+"<br>Total Wheat harvested: "+totalWheat.toLocaleString()+"<br>Total Bread baked: "+totalBread.toLocaleString()+"<br>Total Research Points: "+totalRP.toLocaleString())
@@ -294,23 +334,41 @@ function fasterSelling(obj) {
 	if (rPoint >= 45) {
 		rPoint -= 45;
 		animateOut(obj);
-		sellBreadTimeout -= 1000;
+		sellBreadTimeout = 2000;
 	}
 }
 function fasterWheat(obj) {
 	if (rPoint >= 25) {
 		rPoint -= 25;
 		animateOut(obj);
-		wheatTimeout -= 1000;
+		wheatTimeout = 2000;
 	}
 }
 function fasterBread(obj) {
 	if (rPoint >= 35) {
 		rPoint -= 35;
 		animateOut(obj);
-		breadTimeout -= 1000;
+		breadTimeout = 2000;
 	}
 }
+var variablelist =  ['money','totalMoney','wheat','totalWheat','bread','totalBread','autoWheatPrice','autoBreadPrice','autoSellBreadPrice','increasedBreadPricePrice','autoBuyReseachPrice','wheatAutofalse','breadAutofalse','sellBreadAutofalse','researchfalse','currentTimeWheat','currentTimeBread','currentTimeSellBread','wheatTimeout','breadTimeout','sellBreadTimeout','breadPrice','currency','rp','totalRP','rpMax','rPoint'];
+var variablelength = variablelist.length;
+	
+function saveGame(){
+  for (var i = 0; i < variablelength; i++){
+    localStorage.setItem(variablelist[i], (window[variablelist[i]]));
+	  
+  }
+	spop("<center>Game Saved!</center>");
+}
+
+function loadGame(){
+  for (var i = 0; i < variablelength; i++){
+    window[variablelist[i]] = (localStorage.getItem(variablelist[i]));
+  }
+	spop("<center>Game Loaded!</center>");
+}
+
 function animateOut(obj){
   $(obj).css({
     position: "absolute",
@@ -318,13 +376,14 @@ function animateOut(obj){
   $(obj).animate({
     bottom: "10px",
     opacity: "0",
-  },750,'easeInOutBack',function(){$(this).remove();})
+  },650,'easeInOutBack',function(){$(this).remove();})
 }
 function tooltip() {
 	$('.tip').tooltipster({
 		animation: 'grow',
-		delay: 100,
+		delay: 50,
 		theme: 'tooltipster-punk',
 	});
 }
 tooltip();
+
