@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,3 +7,159 @@
 <body>
 </body>
 </html>
+=======
+<html>
+
+<head>
+    <title>Food Clicker</title>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-select.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="css/tooltip.css" />
+    <link rel="stylesheet" type="text/css" href="css/tooltip-punk.css" />
+    <link href="css/spop.css" rel="stylesheet">
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/bootstrap-select.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/tooltip.js"></script>
+    <script src="js/spop.js"></script>
+</head>
+
+<body onload="start()">
+    <div class="sidenav" id="sideNav">
+        <p class="version">Alpha 2.1</p>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#maingame">Home</a>
+        <a href="#upgrades">Upgrades</a>
+        <a href="#research">Research</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#settings">Settings</a>
+    </div>
+    <div id="main">
+        <btn class="btn btn-default" href="#" onclick="openNav()">Menu</btn>
+        <h1 id="mainText" class="main-text text-center">Food Maker</h1>
+        <div class="row stats">
+            <div class="col-md-3">
+                <div class="text-center" id="wheat"></div>
+				<div class="progress-container autoBar round-medium">
+                    <div class="progressbar" id="wheatBar"></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center" id="bread"></div>
+				<div class="progress-container autoBar round-medium">
+                    <div class="progressbar" id="breadBar"></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center" id="money"></div>
+				<div class="progress-container autoBar round-medium">
+                    <div class="progressbar" id="moneyBar"></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center" id="rp"></div>
+				<div class="progress-container autoBar round-medium">
+                    <div class="progressbar" id="rpBar"></div>
+                </div>
+            </div>
+        </div>
+        <div id="container" class="container">
+            <menu id="maingame">
+                <br><br><br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <button class="btn btn-default" onclick="harvestWheat()">Harvest Wheat</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-default" onclick="bakeBread()">Bake Bread</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-default" onclick="sellBread()">Sell Bread</button>
+                    </div>
+                </div>
+            </menu>
+            <menu id="upgrades">
+                <h2 class="text-center">Upgrades</h2>
+                <br>
+                <button id="buyautowheat" class="btn btn-default tip" onclick="wheatAutoFunc()" title="15 Money">Buy Auto Wheat</button>
+                <button id="buyautobread" class="btn btn-default tip" onclick="breadAutoFunc()" title="20 Money">Buy Auto Bread</button>
+                <button id="buyautosellbread" class="btn btn-default tip" onclick="sellBreadAutoFunc()" title="25 Money">Buy Auto Sell Bread</button>
+                <button id="buyresearch" class="btn btn-default tip" onclick="buyResearchFunc()" title="50 Money">Buy Research</button>
+                <button id="buyincreasedbreadprice" class="btn btn-default tip" onclick="increaseBreadPrice()" title="50 Money">
+                        Buy Increased Bread Price
+                        </button>
+            </menu>
+            <menu id="research">
+                <h2 class="text-center">Research</h2>
+                <br>
+                <div class="progress-container round-medium">
+                    <div class="progressbar" id="rpbar"></div>
+                </div>
+                <br><br>
+                <button class="btn btn-default tip" id="rIngredientChocolate" title="10 Research Points"> 
+                        Chocolate
+                        </button>
+                <button class="btn btn-default tip" id="rFasterWheat" title="25 Research Points" onclick="fasterWheat(this)"> 
+                        Faster Wheat Production
+                        </button>
+                <button class="btn btn-default tip" id="rFasterBread" title="35 Research Points" onclick="fasterBread(this)"> 
+                        Faster Bread Production
+                        </button>
+				<button class="btn btn-default tip" id="rFasterSelling" title="45 Research Points" onclick="fasterSelling(this)"> 
+                        Faster Selling
+                        </button>
+                <button class="btn btn-default tip" id="rIngredientStrawberry" title="50 Research Points"> 
+                        Strawberry
+                        </button>
+                <button class="btn btn-default tip" id="rIngredientSugar" title="100 Research Points"> 
+                        Sugar
+                        </button>
+                <button class="btn btn-default tip" id="rIngredientCinnamon" title="100 Research Points"> 
+                        Cinnamon
+                        </button>
+                <button class="btn btn-default tip" id="rIngredientCinnamonSugar" title="20 Research Points"> 
+                        Cinnamon Sugar
+                        </button>
+            </menu>
+            <menu id="achievements">
+                <h2 class="text-center" id="achievementTitle">Achievements</h2><br>
+                <div class="container-fluid">
+                    <div id="achievementsContainer">
+                    </div>
+					<div style="clear:both;"></div>
+				<h2 class="text-center">Stats</h2>
+					<div id="stats"></div>
+                </div>
+            </menu>
+            <menu id="settings">
+                <h2 class="text-center">Settings</h2>
+				<label for = "selectTheme">Select Theme</label>
+                <select id="selectTheme" class="selectpicker">
+					<optgroup label="Light Themes">
+						<option value="default">Default</option>
+					</optgroup>
+					<optgroup label="Dark Themes">
+						<option value="nightMode">Night Mode</option>
+						<option value="sometheme">Some Theme</option>
+					</optgroup>
+				</select><br><br><br>
+				<label for="selectCurrency">Select Currency</label>
+				<select id="selectCurrency" class="selectpicker">
+					<option value="$">$</option>
+					<option value="€">€</option>
+					<option value="£">£</option>
+					<option value="¥">¥</option>
+				</select>
+            </menu>
+        </div>
+    </div>
+    <div>
+    </div>
+</body>
+<script type="text/javascript" src="js/script.js"></script>
+
+</html>
+>>>>>>> origin/master
