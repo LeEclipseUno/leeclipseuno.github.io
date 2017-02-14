@@ -89,6 +89,7 @@ h2 {
 #achievementsContainer {}
 
 .btn-default {
+	margin: 0 auto;
 	font-family: Comfortaa !important;
 	outline: none !important;
 	border: 1px solid #000;
@@ -171,7 +172,7 @@ input[type="checkbox"] {
 	z-index: 1;
 	top: 0;
 	left: 0;
-	background-color: #222;
+	background-color: #333;
 	overflow-x: hidden;
 	padding-top: 40px;
 	transition: 0.3s;
@@ -234,7 +235,7 @@ input[type="checkbox"] {
 	background-color: rgb(0, 122, 255);
 	height: 100%;
 	line-height: inherit;
-	/*transition: all 0.0001s cubic-bezier(.27, .22, 0, .99);*/
+	transition: all 0.0001s cubic-bezier(.27, .22, 0, .99);
 	text-align: center;
 	font-size: 16px;
 }
@@ -265,6 +266,7 @@ input[type="checkbox"] {
 }
 
 .control__indicator {
+	border: 1px solid #333;
 	position: absolute;
 	top: 2px;
 	left: 0;
