@@ -19,6 +19,7 @@ body {
 	font-family: Roboto, Arial, sans-serif;
 	color: #000;
 	overflow: hidden;
+	background-color: #eaeaea;
 }
 
 label {
@@ -182,7 +183,7 @@ input[type="checkbox"] {
 	font-size: 25px;
 	color: #818181;
 	display: block;
-	transition: 0.2s;
+	transition: 0.3s;
 	letter-spacing: 0.8px;
 }
 
@@ -192,7 +193,7 @@ input[type="checkbox"] {
 	font-size: 11px;
 	color: #fff;
 	display: block;
-	transition: 0.1s;
+	transition: 0.3s;
 }
 
 .sidenav a:hover,
@@ -209,7 +210,7 @@ input[type="checkbox"] {
 }
 
 #main {
-	transition: margin-left .5s;
+	transition: margin-left .3s;
 	padding: 10px;
 }
 
@@ -300,6 +301,7 @@ input[type="checkbox"] {
 	position: absolute;
 	display: none;
 	content: '';
+	border: 1px solid #000;
 }
 
 .control input:checked~.control__indicator:after {
