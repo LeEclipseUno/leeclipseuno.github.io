@@ -23,7 +23,7 @@
 	<div class="sidenav" id="sideNav">
 		<p class="version">Alpha 2.01</p><br>
 		<a href="#maingame">Home</a>
-		<!--<a href="#buildings">Buildings</a> -->
+		<a href="#buildings">Buildings</a>
 		<a href="#upgrades">Upgrades</a>
 		<a href="#research">Research</a>
 		<a href="#achievements">Achievements</a>
@@ -58,7 +58,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="container" class="container">
+		<div class="container" id="container">
 			<menu id="maingame">
 				<br><br><br>
 				<div class="row">
@@ -76,9 +76,16 @@
 			<menu id="buildings">
 				<h2 class="text-center">Buildings</h2>
 				<br>
-				<button id="buyautowheat" class="btn btn-default tip" onclick="wheatAutoFunc()" title="15 Money">Wheat Garden</button>
-				<button id="buyautobread" class="btn btn-default tip" onclick="breadAutoFunc()" title="20 Money">Small Oven</button>
-				<button id="buyautosellbread" class="btn btn-default tip" onclick="sellBreadAutoFunc()" title="25 Money">Bread Stand</button>
+				<div class="row">
+					<div class="col-md-4">
+						<button id="buyfarm" class="btn btn-default text-center" onclick="buyBuildings('farm')">[0]<br>Wheat Farm<br>15$</button>
+					</div>
+					<div class="col-md-4">
+						<button id="buyoven" class="btn btn-default text-center" onclick="buyBuildings('oven')">[0]<br>Small Oven<br>15$</button>
+					</div>
+					<div class="col-md-4">
+						<button id="buybreadStand" class="btn btn-default text-center" onclick="buyBuildings('breadStand')">[0]<br>Bakery<br>15$</button>
+					</div>
 			</menu>
 			<menu id="upgrades">
 				<h2 class="text-center">Upgrades</h2>
