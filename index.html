@@ -21,16 +21,16 @@
 
 <body onload="start()">
 	<div class="sidenav" id="sideNav">
-		<p class="version">Alpha 2.01</p>
-		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		<p class="version">Alpha 2.01</p><br>
 		<a href="#maingame">Home</a>
+		<a href="#buildings">Buildings</a>
 		<a href="#upgrades">Upgrades</a>
 		<a href="#research">Research</a>
 		<a href="#achievements">Achievements</a>
 		<a href="#settings">Settings</a>
 	</div>
 	<div id="main">
-		<btn class="btn btn-default" href="#" onclick="openNav()">Menu</btn>
+		<btn class="btn btn-default" href="#" onclick="navF()">Menu</btn>
 		<h1 id="mainText" class="main-text text-center"></h1>
 		<div class="row stats">
 			<div class="col-md-3">
@@ -73,12 +73,16 @@
 					</div>
 				</div><br><br>
 			</menu>
+			<menu id="buildings">
+				<h2 class="text-center">Buildings</h2>
+				<br>
+				<button id="buyautowheat" class="btn btn-default tip" onclick="wheatAutoFunc()" title="15 Money">Wheat Garden</button>
+				<button id="buyautobread" class="btn btn-default tip" onclick="breadAutoFunc()" title="20 Money">Small Oven</button>
+				<button id="buyautosellbread" class="btn btn-default tip" onclick="sellBreadAutoFunc()" title="25 Money">Bread Stand</button>
+			</menu>
 			<menu id="upgrades">
 				<h2 class="text-center">Upgrades</h2>
 				<br>
-				<button id="buyautowheat" class="btn btn-default tip" onclick="wheatAutoFunc()" title="15 Money">Buy Auto Wheat</button>
-				<button id="buyautobread" class="btn btn-default tip" onclick="breadAutoFunc()" title="20 Money">Buy Auto Bread</button>
-				<button id="buyautosellbread" class="btn btn-default tip" onclick="sellBreadAutoFunc()" title="25 Money">Buy Auto Sell Bread</button>
 				<button id="buyresearch" class="btn btn-default tip" onclick="buyResearchFunc()" title="50 Money">Buy Research</button>
 				<button id="buyincreasedbreadprice" class="btn btn-default tip" onclick="increaseBreadPrice()" title="50 Money">
                         Buy Increased Bread Price
