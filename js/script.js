@@ -47,6 +47,8 @@ var totalRP = 0;
 var rpMax = 100;
 var rPoint = 0;
 
+var nav = false;
+
 var achievementIcon = '<img src="icons/achievement.png" width="45" height="45">';
 var saveIcon = '<img src="icons/save.png" width="35" height="35">';
 
@@ -171,6 +173,8 @@ function update() {
 	document.getElementById("moneyBar").style.width = perc + "%";
 	document.getElementById("moneyBar").style.backgroundColor = "rgb(" + Math.floor(255 - (2.55 * perc)) + "," + Math.round(2.55 * perc) + ",0)";
 
+	console.log(currentAutosave);
+
 	setTimeout(update, 100);
 }
 
@@ -249,7 +253,7 @@ function loop() {
 	var theme = $('#selectTheme').val()
 	if (theme == 'default') {
 		$('body').css({
-			backgroundColor: "#fff",
+			backgroundColor: "#eaeaea",
 			color: "#000",
 		})
 		$('.sidenav a').css({
@@ -272,7 +276,8 @@ function loop() {
 		})
 	}
 	$("#stats").html("Total Bread Sold: " + totalMoney.toLocaleString() + "<br>Total Wheat harvested: " + totalWheat.toLocaleString() + "<br>Total Bread baked: " + totalBread.toLocaleString() + "<br>Total Research Points: " + totalRP.toLocaleString())
-	currency = $('#selectCurrency').val()
+	currency = $('#selectCurrency').val();
+
 	setTimeout(loop, 100);
 }
 loop();
@@ -312,15 +317,26 @@ function buyResearchFunc() {
 function start() {
 	update();
 }
+//
+//function openNav() {
+//	document.getElementById("sideNav").style.width = "250px";
+//	document.getElementById("main").style.marginLeft = "250px";
+//}
+//
+//function closeNav() {
+//	document.getElementById("sideNav").style.width = "0";
+//	document.getElementById("main").style.marginLeft = "0";
+//}
 
-function openNav() {
-	document.getElementById("sideNav").style.width = "250px";
-	document.getElementById("main").style.marginLeft = "250px";
-}
-
-function closeNav() {
-	document.getElementById("sideNav").style.width = "0";
-	document.getElementById("main").style.marginLeft = "0";
+function navF() {
+	nav = !nav;
+	if (nav) {
+		document.getElementById("sideNav").style.width = "250px";
+		document.getElementById("main").style.marginLeft = "250px";
+	} else {
+		document.getElementById("sideNav").style.width = "0";
+		document.getElementById("main").style.marginLeft = "0";
+	}
 }
 
 function increaseBreadPrice() {
@@ -368,23 +384,23 @@ function saveGame() {
 function loadGame() {
 	achievements = JSON.parse(localStorage["achievements"]);
 	for (var i = 0; i < variablelength; i++) {
-		if (isNaN(localStorage.getItem(variablelist[i])) == false){
+		if (isNaN(localStorage.getItem(variablelist[i])) == false) {
 			window[variablelist[i]] = (parseFloat(localStorage.getItem(variablelist[i])));
 			continue;
 		}
 		window[variablelist[i]] = (localStorage.getItem(variablelist[i]));
 	}
-	
-	for (var key in achievements){
-    for (var s = 0; s < achievements[key].amount.length; s++){
-      if (achievements[key].achieved[s]){
-		  console.log(key,achievements[key].achieved[s]);
-        $('#'+key+achievements[key].amount[s]).html("");
-        var title = "Collect "+achievements[key].amount[s].toLocaleString()+" "+key;
-        $('#'+key+achievements[key].amount[s]).html('<div class=tip title="'+title+'">&#10003;</div>');
-      }
-    }
-  }
+
+	for (var key in achievements) {
+		for (var s = 0; s < achievements[key].amount.length; s++) {
+			if (achievements[key].achieved[s]) {
+				console.log(key, achievements[key].achieved[s]);
+				$('#' + key + achievements[key].amount[s]).html("");
+				var title = "Collect " + achievements[key].amount[s].toLocaleString() + " " + key;
+				$('#' + key + achievements[key].amount[s]).html('<div class=tip title="' + title + '">&#10003;</div>');
+			}
+		}
+	}
 	spop("<center>Game Loaded!</center>");
 }
 
@@ -407,4 +423,4 @@ function tooltip() {
 		theme: 'tooltipster-punk',
 	});
 }
-setTimeout(tooltip,1500);
+setTimeout(tooltip, 1500);
