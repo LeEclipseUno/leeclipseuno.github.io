@@ -15,27 +15,39 @@ var totalWheat = 0;
 var bread = 0;
 var totalBread = 0;
 
-var autoWheatPrice = 15;
-var autoBreadPrice = 20;
-var autoSellBreadPrice = 25;
 var increasedBreadPricePrice = 50;
 var autoBuyReseachPrice = 50;
+const maxTime = 5;
+var farm = {
+	price: 15,
+	amount: 0,
+	name: "Wheat Farm",
+	value: 0,
+	valueMax: 5000,
+	affects: "harvestWheat",
+}
+var oven = {
+	price: 15,
+	amount: 0,
+	name: "Small Oven",
+	value: 0,
+	valueMax: 5000,
+	affects: "bakeBread",
+}
+var breadStand = {
+	price: 15,
+	amount: 0,
+	name: "Bakery",
+	value: 0,
+	valueMax: 5000,
+	affects: "sellBread",
+}
 
-var wheatAuto = false;
-var breadAuto = false;
-var sellBreadAuto = false;
 var research = false;
-
 var autosave = false;
 
-var currentTimeWheat = 0;
-var currentTimeBread = 0
-var currentTimeSellBread = 0;
 var currentAutosave = 0;
 
-var wheatTimeout = 3000;
-var breadTimeout = 3000;
-var sellBreadTimeout = 3000;
 var autosaveTimeout = 6000;
 
 var breadPrice = 1;
@@ -83,6 +95,24 @@ var achievements = {
 		achieved: [],
 		variableName: "totalRP",
 		onAchieveText: "You earned <> Research Points!",
+	},
+	Farm: {
+		amount: [1, 10, 25, 50, 100, 200, 500, 750, 1000, 2500, 5000, 10000, 15000, 25000, 50000, 100000, 500000, 1000000, 5000000, 10000000],
+		achieved: [],
+		variableName: "farm.amount",
+		onAchieveText: "You've built <> Farm(s)",
+	},
+	Oven: {
+		amount: [1, 10, 25, 50, 100, 200, 500, 750, 1000, 2500, 5000, 10000, 15000, 25000, 50000, 100000, 500000, 1000000, 5000000, 10000000],
+		achieved: [],
+		variableName: "oven.amount",
+		onAchieveText: "You've built <> Oven(s)",
+	},
+	Bakery: {
+		amount: [1, 10, 25, 50, 100, 200, 500, 750, 1000, 2500, 5000, 10000, 15000, 25000, 50000, 100000, 500000, 1000000, 5000000, 10000000],
+		achieved: [],
+		variableName: "breadStand.amount",
+		onAchieveText: "You've built <> Baker(y/ies)",
 	}
 }
 
@@ -102,7 +132,6 @@ for (var key in achievements) {
 		$('#achievementsContainer').append(element);
 		achievementsNumber++;
 	}
-	//	$('#achievementsContainer').append("<div style=clear:both;></div>");
 }
 
 function harvestWheat() {
@@ -132,34 +161,6 @@ function update() {
 	document.getElementById("bread").innerHTML = "Bread: " + Math.floor(bread).toLocaleString();
 	document.getElementById("rp").innerHTML = "RP: " + Math.floor(rPoint);
 
-	if (wheatAuto) {
-		currentTimeWheat += 100;
-	}
-	if (currentTimeWheat > wheatTimeout) {
-		currentTimeWheat = 0;
-		harvestWheat();
-	}
-	var perc = currentTimeWheat / wheatTimeout * 100
-	document.getElementById("wheatBar").style.width = perc + "%";
-	document.getElementById("wheatBar").style.backgroundColor = "rgb(" + Math.floor(255 - (2.55 * perc)) + "," + Math.round(2.55 * perc) + ",0)";
-	if (breadAuto && wheat >= 1) {
-		currentTimeBread += 100;
-	}
-	if (currentTimeBread > breadTimeout) {
-		currentTimeBread = 0;
-		bakeBread();
-	}
-	perc = currentTimeBread / breadTimeout * 100
-	document.getElementById("breadBar").style.width = perc + "%";
-	document.getElementById("breadBar").style.backgroundColor = "rgb(" + Math.floor(255 - (2.55 * perc)) + "," + Math.round(2.55 * perc) + ",0)";
-	if (sellBreadAuto && bread >= 1) {
-		currentTimeSellBread += 100;
-	}
-	if (currentTimeSellBread > sellBreadTimeout) {
-		currentTimeSellBread = 0;
-		sellBread();
-	}
-
 	autosave = $('#autosaveC').is(':checked');
 	if (autosave) {
 		currentAutosave += 1;
@@ -169,13 +170,43 @@ function update() {
 		saveGame();
 	}
 
-	perc = currentTimeSellBread / sellBreadTimeout * 100
-	document.getElementById("moneyBar").style.width = perc + "%";
-	document.getElementById("moneyBar").style.backgroundColor = "rgb(" + Math.floor(255 - (2.55 * perc)) + "," + Math.round(2.55 * perc) + ",0)";
-
-	console.log(currentAutosave);
+	var entities = ["farm", "oven", "breadStand"];
+	var bars = ["wheatBar", "breadBar", "moneyBar"];
+	for (var i = 0; i < entities.length; i++) {
+		var object = window[entities[i]];
+		object.valueMax = maxTime / object.amount;
+		if (object.amount >= 1) {
+			if (i == 0) {
+				object.value += 0.1;
+			}
+			if (i == 1 && wheat >= 1) {
+				object.value += 0.1;
+			}
+			if (i == 2 && bread >= 1) {
+				object.value += 0.1;
+			}
+		}
+		if (object.value > object.valueMax) {
+			object.value = 0;
+			window[object.affects]();
+		}
+		var perc = object.value / object.valueMax * 100;
+		$('#' + bars[i]).css({
+			width: perc + "%",
+		})
+	}
 
 	setTimeout(update, 100);
+}
+
+function buyBuildings(type) {
+	var obj = window[type]
+	if (money >= obj.price) {
+		obj.amount += 1;
+		money -= obj.price;
+		obj.price *= 1.2;
+		$('#buy' + type).html("[" + obj.amount + "]" + "<br>" + obj.name + "<br>" + Math.floor(obj.price * 100) / 100 + currency);
+	}
 }
 
 function typeWriterEffect(id, msg) {
@@ -219,6 +250,11 @@ function loop() {
 	for (var key in achievements) {
 		var amount = achievements[key].amount;
 		var obj = window[achievements[key].variableName];
+		if (!obj) {
+			var s = achievements[key].variableName.split('.');
+			var d = window[[s[0]]][s[1]];
+			obj = d;
+		}
 		for (var i = 0; i < amount.length; i++) {
 			var achieved = achievements[key].achieved[i];
 			if (obj >= amount[i] && achieved == false) {
@@ -317,16 +353,6 @@ function buyResearchFunc() {
 function start() {
 	update();
 }
-//
-//function openNav() {
-//	document.getElementById("sideNav").style.width = "250px";
-//	document.getElementById("main").style.marginLeft = "250px";
-//}
-//
-//function closeNav() {
-//	document.getElementById("sideNav").style.width = "0";
-//	document.getElementById("main").style.marginLeft = "0";
-//}
 
 function navF() {
 	nav = !nav;
