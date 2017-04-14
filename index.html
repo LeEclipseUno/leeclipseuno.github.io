@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Life Sim | v0.013</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.js"></script>
+</head>
+
+<body onload="startGameLoad()">
+	<div id="mainPageScreen" class="mainPage">
+		<div class="introduction text-center">
+			<h1>Welcome To<br><span class="title">Life Sim!</span></h1>
+			<p>v0.1</p>
+		</div>
+		<div class="settingsChangelog">
+			<p onclick="showSettingsScreen()" class="settings">Settings</p>
+			<p onclick="showChangelogScreen()" class="changelog">Changelog</p>
+		</div>
+		<center>
+			<div class="stats">
+				<input id="firstnameInput" class="nameInput" type="text" placeholder="First Name">
+				<input id="lastnameInput" class="nameInput" type="text" placeholder="Last Name">
+			</div>
+		</center>
+		<div class="startGameButtons">
+			<p id="errorName" class="text-center" style="display:none">You forgot to name yourself!</p>
+			<center><button id="lifeButton" onclick="checkname()" class="btn btn-life">Start your life</button></center>
+		</div>
+	</div>
+	<div id="gamePageScreen" class="gamePage">
+		<div id="statsBarMain">
+			<div id="statsBarCloser" class="statsBar">
+				<div class="navbar navbar-inverse">
+					<div class="navbar-header">
+						<a id="navbarName" class="navbar-brand">{Naming Error: Reload Page}</a>
+					</div>
+					<ul class="nav navbar-nav">
+						<li>
+							<a id="lifeNameLastName">Life</a>
+						</li>
+						<li>
+							<a id="lifeNameLastName">Jobs</a>
+						</li>
+						<li>
+							<a id="lifeNameLastName">Pets</a>
+						</li>
+						<li>
+							<a id="lifeNameLastName">Shop</a>
+						</li>
+						<li>
+							<a id="lifeNameLastName">Bank</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a id="money-display">$0</a>
+						</li>
+					</ul>
+				</div>
+				<div id="bar-energy" class="progress progress-bar-energy">
+					<div class="progress-bar ">
+						<span id="energyName" class="text-center">Energy</span>
+					</div>
+				</div>
+				<div id="bar-hunger" class="progress progress-bar-hunger">
+					<div class="progress-bar ">
+						<span id="hungerName" class="text-center">Hunger</span>
+					</div>
+				</div>
+				<div id="bar-thirst" class="progress progress-bar-thirst">
+					<div class="progress-bar ">
+						<span id="thirstName" class="text-center">Thirst</span>
+					</div>
+				</div>
+			</div>
+			<hr class="statsBorderBar">
+			<div onclick="closeopenStats()" class="closeOpen">
+				<hr class="sLines">
+				<hr class="sLines">
+				<hr class="sLines">
+			</div>
+		</div>
+		<div id="textIntro">
+			<h1 class="text-center" id="textIntroMain"></h1>
+			<p class="text-center" id="textIntroSmall"></p>
+			<center><button id="work" class="btn btn-button-1" onclick="work()">Work + $1</button></center>
+			<center><button id="sleep" class="btn btn-button-1" onclick="sleep()">Sleep in hotel - $6</button></center>
+			<center><button id="eat" class="btn btn-button-1" onclick="eat()">Eat fast food - $2</button></center>
+			<center><button id="drink" class="btn btn-button-1" onclick="drink()">Drink water - $1</button></center>
+		</div>
+	</div>
+	<div id="settingsScreen">
+		<i class="fa fa-arrow-left"></i>
+		<h1 class="text-center">Settings</h1>
+		<hr>
+	</div>
+	<div id="changelogScreen">
+		<i class="fa fa-arrow-left"></i>
+		<h1 class="text-center">Changelog</h1>
+		<hr>
+		<div class="changelogMain">
+			<h2>Update 1:</h2>
+			<p>| Added Date(Not working)<br> | Added Intro Text<br> | Added Name in top left corner navbar</p>
+			<br><br>
+			<h2>Update 2:</h2>
+			<p>| Removed date<br> | Added money<br> | Made navbars work<br> | Made buttons work</p>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="js/script.js"></script>
+
+</html>
