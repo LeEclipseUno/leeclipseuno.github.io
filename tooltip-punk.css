@@ -1,0 +1,35 @@
+.tooltipster-sidetip.tooltipster-punk .tooltipster-box {
+    border-radius: 1px;
+    border: none;
+    border-bottom: 3px solid #0099ff;
+    background: #333;
+}
+
+.tooltipster-sidetip.tooltipster-punk.tooltipster-top .tooltipster-box {
+    margin-bottom: 7px
+}
+
+.tooltipster-sidetip.tooltipster-punk .tooltipster-content {
+    color: #fff;
+    padding: 4px 8px
+}
+
+.tooltipster-sidetip.tooltipster-punk .tooltipster-arrow-background {
+    display: none
+}
+
+.tooltipster-sidetip.tooltipster-punk.tooltipster-bottom .tooltipster-arrow-border {
+    border-bottom-color: #222
+}
+
+.tooltipster-sidetip.tooltipster-punk.tooltipster-left .tooltipster-arrow-border {
+    border-left-color: #222
+}
+
+.tooltipster-sidetip.tooltipster-punk.tooltipster-right .tooltipster-arrow-border {
+    border-right-color: #222
+}
+
+.tooltipster-sidetip.tooltipster-punk.tooltipster-top .tooltipster-arrow-border {
+    border-top-color: #0099ff
+}
