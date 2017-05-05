@@ -62,6 +62,7 @@ var rPoint = 0;
 var nav = false;
 
 var achievementIcon = '<img src="icons/achievement.png" width="45" height="45">';
+var warningIcon = '<img src="icons/warning.png" width="45" height="45">';
 var saveIcon = '<img src="icons/save.png" width="35" height="35">';
 
 spop.defaults = {
@@ -156,7 +157,7 @@ function sellBread() {
 }
 
 function update() {
-	document.getElementById("money").innerHTML = "Money: " + Math.floor(money).toLocaleString() + currency;
+	document.getElementById("money").innerHTML = "Money: " + currency + Math.floor(money).toLocaleString();
 	document.getElementById("wheat").innerHTML = "Wheat: " + Math.floor(wheat).toLocaleString();
 	document.getElementById("bread").innerHTML = "Bread: " + Math.floor(bread).toLocaleString();
 	document.getElementById("rp").innerHTML = "RP: " + Math.floor(rPoint);
@@ -169,7 +170,6 @@ function update() {
 		currentAutosave = 0;
 		saveGame();
 	}
-
 	var entities = ["farm", "oven", "breadStand"];
 	var bars = ["wheatBar", "breadBar", "moneyBar"];
 	for (var i = 0; i < entities.length; i++) {
@@ -195,17 +195,27 @@ function update() {
 			width: perc + "%",
 		})
 	}
-
 	setTimeout(update, 100);
 }
+
 
 function buyBuildings(type) {
 	var obj = window[type]
 	if (money >= obj.price) {
 		obj.amount += 1;
 		money -= obj.price;
-		obj.price *= 1.2;
-		$('#buy' + type).html("[" + obj.amount + "]" + "<br>" + obj.name + "<br>" + Math.floor(obj.price * 100) / 100 + currency);
+		obj.price *= 1.5;
+		$('#buy' + type).html("[" + obj.amount + "]" + "<br>" + obj.name + "<br>" + currency + Math.floor(obj.price * 100) / 100);
+	}
+}
+
+function fasterResearch() {
+	if (money >= 70) {
+		rpMax = 75;
+		money -= 70;
+		document.getElementById("buyfasterresearch").style.display = 'none';
+	} else {
+		spop("Missing " + currency + Math.floor(70 - money));
 	}
 }
 
@@ -318,30 +328,6 @@ function loop() {
 }
 loop();
 
-function wheatAutoFunc() {
-	if (money >= autoWheatPrice) {
-		money -= autoWheatPrice;
-		document.getElementById("buyautowheat").style.display = 'none';
-		wheatAuto = true;
-	}
-}
-
-function breadAutoFunc() {
-	if (money >= autoBreadPrice) {
-		money -= autoBreadPrice;
-		document.getElementById("buyautobread").style.display = 'none';
-		breadAuto = true;
-	}
-}
-
-function sellBreadAutoFunc() {
-	if (money >= autoSellBreadPrice) {
-		money -= autoSellBreadPrice;
-		document.getElementById("buyautosellbread").style.display = 'none';
-		sellBreadAuto = true;
-	}
-}
-
 function buyResearchFunc() {
 	if (money >= autoBuyReseachPrice) {
 		money -= autoBuyReseachPrice;
@@ -352,6 +338,7 @@ function buyResearchFunc() {
 
 function start() {
 	update();
+	loadGame();
 }
 
 function navF() {
@@ -396,7 +383,7 @@ function fasterBread(obj) {
 		breadTimeout = 2000;
 	}
 }
-var variablelist = ['money', 'totalMoney', 'wheat', 'totalWheat', 'bread', 'totalBread', 'autoWheatPrice', 'autoBreadPrice', 'autoSellBreadPrice', 'increasedBreadPricePrice', 'autoBuyReseachPrice', 'wheatAutofalse', 'breadAutofalse', 'sellBreadAutofalse', 'researchfalse', 'currentTimeWheat', 'currentTimeBread', 'currentTimeSellBread', 'wheatTimeout', 'breadTimeout', 'sellBreadTimeout', 'breadPrice', 'currency', 'rp', 'totalRP', 'rpMax', 'rPoint'];
+var variablelist = ['money', 'totalMoney', 'wheat', 'totalWheat', 'bread', 'totalBread', 'farm', 'oven', 'breadstand', 'increasedBreadPricePrice', 'autoBuyReseachPrice', 'researchfalse', 'breadPrice', 'currency', 'rp', 'totalRP', 'rpMax', 'rPoint'];
 var variablelength = variablelist.length;
 
 function saveGame() {
